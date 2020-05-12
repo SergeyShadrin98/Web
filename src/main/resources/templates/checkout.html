@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/checkout.css">
+    <title>
+        Game Store
+    </title>
+</head>
+
+<body>
+
+<div class="cart">
+
+    <p th:text="'В корзине игр: ' + ${cartcount}" id="gameCount"></p>
+
+    <br>
+
+    <div th:each="game, iterStat: ${games}" th:id="'div-' + ${gameids[iterStat.index]}" class="game">
+
+        <p th:text="${game}"></p>
+
+        <p th:text="${prices[iterStat.index]}"></p>
+
+        <button type="button" th:id="${gameids[iterStat.index]}" th:onclick="'deleteFromCart(' + ${gameids[iterStat.index]} + ')'">Убрать из корзины</button>
+
+        <br>
+
+    </div>
+
+    <p th:text="'Финальная цена: ' + ${finalprice}" id="price"></p>
+
+    <form method="get" action="/buy">
+        <button type="submit" id="checkoutButton" class="cartButton">
+            Купить
+        </button>
+    </form>
+
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/checkout.js"></script>
+
+
+</body>
+
+</html>

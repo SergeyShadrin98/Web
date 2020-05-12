@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Games Store
+    </title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <!--<link rel="stylesheet" th:href="@{css/index.css}"/>-->
+
+</head>
+
+<body>
+
+<div id="myModal" class="modal">
+
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="spot_table">
+            <div class="spot_element">
+                <form method="get" action="/setSpot/Пермь">
+                    <button type="submit" class="link_button">
+                        Пермь
+                    </button>
+                </form>
+            </div>
+            <div class="spot_element">
+                <form method="get" action="/setSpot/Добрянка">
+                    <button type="submit" class="link_button">
+                        Добрянка
+                    </button>
+                </form>
+            </div>
+            <div class="spot_element">
+                <form method="get" action="/setSpot/Березники">
+                    <button type="submit" class="link_button">
+                        Березники
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p class="spot_class">
+    <a onclick="openModal()" href="#location">
+        Ваше местоположение:
+        <span th:text="${location}" id="spot">
+        </span>
+    </a>
+</p>
+
+<p style="color: green" th:text="${result}"></p>
+
+<div class="filter">
+
+    <p>
+        Фильтр:
+    </p>
+
+    <div class="filter-element">
+        <input type="checkbox" id="filtersort" name="filtersort" onchange="filtersort()">
+        <label for="filtersort">Сортировать по цене</label>
+    </div>
+
+    <div class="filter-element">
+        <input type="checkbox" id="filterFree" name="filterFree" onchange="filterFree1()">
+        <label for="filterFree">Бесплатно</label>
+    </div>
+
+    <div class="filter-element">
+        <input type="checkbox" id="filter2" name="filter2" onchange="filterFree2()">
+        <label for="filter2">Цена ниже 1000</label>
+    </div>
+</div>
+
+
+<div class="cart">
+    <form method="get" action="/checkout">
+        <button type="submit" id="checkoutButton" class="cartButton">
+        </button>
+    </form>
+
+
+
+    <br>
+    <span class="text">
+        В корзине:
+    </span>
+    <span id="id_cartcount" th:text="${cartcount}" class="text">
+    </span>
+</div>
+
+
+<div th:each="game, iterStat: ${games}" class="game" th:id="'game-' + ${iterStat.index}">
+    <img th:src="'images/games/' + ${game} + '.jpg'" alt="Game" height = "40%" width="60%" class="center">
+
+    <br>
+
+    <div class="desc">
+
+        <p th:text="${game}"></p>
+
+        <br>
+
+        <p>
+            Цена:
+        </p>
+        <p th:text="${prices[iterStat.index]}" th:id="'game-' + ${iterStat.index} + '-p'"></p>
+
+        <br>
+
+        <button type="button" th:id="'submitButton' + ${iterStat.index}" th:onclick="'addToCart(' + ${iterStat.index} + ')'">Добавить в корзину</button>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../js/main.js"></script>
+<!--<script type="text/javascript" th:src="@{js/main.js}"></script>-->
+
+</body>
+</html>

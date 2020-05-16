@@ -25,7 +25,12 @@ public class ShopController
     @Autowired
     ShopRepository shopRespository;
 
+    @GetMapping("/myindex")
+    public String main(Model model, HttpServletRequest request, HttpSession session)
+    {
 
+        return "myindex";
+    }
 
     @GetMapping("/")
     public String main(Model model, @CookieValue(value = "userLocation", defaultValue = "не опознано.") String myCookie, @RequestParam(required=false) boolean success, HttpServletRequest request, HttpSession session)
